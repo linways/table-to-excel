@@ -46,15 +46,24 @@ function make_html_utils_lib(XLSX) {
                 };
                 var o = {t: 's', v: v, s: s};
                 var _t = elt.getAttribute("data-t"); //cell type
-                var _numFmt = elt.getAttribute("data-numFmt"); // number format
+                var _fillFgColor = elt.getAttribute("data-fill-color"); // cell background color
+                var _fontName = elt.getAttribute("data-f-name"); //font name
                 var _fontSz = elt.getAttribute("data-f-sz"); //font size
                 var _fontBold = elt.getAttribute("data-f-bold"); // font-bold
                 var _fontColor = elt.getAttribute("data-f-color"); // font-color
                 var _underline = elt.getAttribute("data-f-underline"); // underline
                 var _italic = elt.getAttribute("data-f-italic"); // italic
+                var _strike = elt.getAttribute("data-f-strike"); // strike
+                var _numFmt = elt.getAttribute("data-num-fmt"); // number format
                 var _aHorizontal = elt.getAttribute("data-a-h"); // align horizontal
                 var _aVertical = elt.getAttribute("data-a-v"); // align vertical
                 var _aWrap = elt.getAttribute("data-a-wrap"); // text wrap
+                var _txtRotation = elt.getAttribute("data-a-text-rotation"); // text rotation
+                var _b_t_s = elt.getAttribute("data-b-t-s");
+                var _b_b_s = elt.getAttribute("data-b-b-s");
+                var _b_l_s = elt.getAttribute("data-b-l-s");
+                var _b_r_s = elt.getAttribute("data-b-r-s");
+                var _b_a_s = elt.getAttribute("data-b-a-s");
                 if (v != null) {
                     if (v.length == 0) o.t = _t || 'z';
                     else if (opts.raw || v.trim().length == 0 || _t == "s") {
@@ -62,15 +71,32 @@ function make_html_utils_lib(XLSX) {
                     else if (_t && _t.length) {
                         o.t = _t;
                     }
+                    if (_fontName) o.s.font.name = _fontName;
                     if (_fontSz) o.s.font.sz = _fontSz;
                     if (_fontBold) o.s.font.bold = _fontBold;
                     if (_fontColor) o.s.font.color = {rgb: _fontColor};
                     if (_underline) o.s.font.underline = _underline;
                     if (_italic) o.s.font.italic = _italic;
+                    if (_strike) o.s.font.strike = _strike;
                     if (_numFmt) o.s.numFmt = _numFmt;
                     if (_aHorizontal) o.s.alignment.horizontal = _aHorizontal;
                     if (_aVertical) o.s.alignment.vertical = _aVertical;
                     if (_aWrap) o.s.alignment.wrapText = _aWrap;
+                    if (_txtRotation) o.s.alignment.textRotation = _txtRotation;
+                    if (_b_a_s){
+                        o.s.border.top = {style: _b_a_s};
+                        o.s.border.bottom = {style: _b_a_s};
+                        o.s.border.left = {style: _b_a_s};
+                        o.s.border.right = {style: _b_a_s};
+                    }else{
+                        if (_b_t_s) o.s.border.top = {style: _b_t_s};
+                        if (_b_b_s) o.s.border.bottom = {style: _b_b_s};
+                        if (_b_l_s) o.s.border.left = {style: _b_l_s};
+                        if (_b_r_s) o.s.border.right = {style: _b_r_s};
+                    }
+                    if(_fillFgColor){
+                        o.s.fill ={ patternType: "solid", fgColor: { rgb: _fillFgColor }};
+                    }
                 }
                 if (opts.dense) {
                     if (!ws[R]) ws[R] = [];

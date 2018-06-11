@@ -1,6 +1,9 @@
 <html>
 <head>
-    <script lang="javascript" src="../dist/xlsx_html.full.min.js"></script>
+    <!-- <script lang="javascript" src="../dist/xlsx_html.full.min.js"></script> -->
+    <script lang="javascript" src="../lib/FileSaver.min.js"></script>
+    <script lang="javascript" src="../lib/xlsx.core.min.js"></script>
+    <script lang="javascript" src="../src/xlsx_html_utils.js"></script>
     <style>
         table, td, th {
             border: 1px solid;
@@ -18,28 +21,28 @@
             </td>
         </tr>
         <tr >
-            <td colspan="5" data-f-italic="true" data-a-h="center">
-                Italic and horizontal center
+            <td colspan="5" data-f-italic="true" data-a-h="center" data-f-name="Arial">
+                Italic and horizontal center in Arial
             </td>
         </tr>
         <tr>
-            <th>Col 1 (number)</th>
-            <th>Col 2</th>
+            <th data-a-text-rotation="90">Col 1 (number)</th>
+            <th data-a-text-rotation="90">Col 2</th>
             <th data-a-wrap="true">Wrapped Text</th>
-            <th>Col 4 (date)</th>
-            <th>Col 5</th>
+            <th data-a-text-rotation="90">Col 4 (date)</th>
+            <th data-a-text-rotation="90">Col 5</th>
         </tr>
         <tr>
             <td rowspan="1" data-t="n">
                 1
             </td>
-            <td rowspan="1">
+            <td rowspan="1"  data-b-b-s="thick" data-b-l-s="thick" data-b-r-s="thick">
                 ABC1
             </td>
-            <td rowspan="1">
-                Text 1
+            <td rowspan="1" data-f-strike="true">
+                Striked Text
             </td>
-            <td data-t="d">
+            <td data-t="d" >
                 05-20-2018
             </td>
             <td data-t="n">
@@ -51,16 +54,16 @@
             <td rowspan="2" data-t="n">
                 2
             </td>
-            <td rowspan="2">
+            <td rowspan="2" data-fill-color="FFFF0000" data-f-color="FFFFFFFF">
                 ABC 2
             </td>
-            <td rowspan="2">
+            <td rowspan="2" >
                 Merged cell
             </td>
             <td data-t="d">
                 05-21-2018
             </td>
-            <td  data-t="n">
+            <td  data-t="n" data-b-a-s="dashed">
                 230.00
             </td>
         </tr>
