@@ -1,0 +1,94 @@
+<html>
+<head>
+    <script lang="javascript" src="../dist/xlsx_html.full.min.js"></script>
+    <style>
+        table, td, th {
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+    </style>
+
+</head>
+<body>
+<div id="wrapper">
+    <table border="1" class="" width="100%" id="test-html-table" data-cols-width="20,15,10">
+        <tbody><tr>
+            <td colspan="5" data-f-sz="25" data-f-color="FFFFAA00" data-a-h="center" data-a-v="center" data-f-underline="true">
+                Sample Excel
+            </td>
+        </tr>
+        <tr >
+            <td colspan="5" data-f-italic="true" data-a-h="center">
+                Italic and horizontal center
+            </td>
+        </tr>
+        <tr>
+            <th>Col 1 (number)</th>
+            <th>Col 2</th>
+            <th data-a-wrap="true">Wrapped Text</th>
+            <th>Col 4 (date)</th>
+            <th>Col 5</th>
+        </tr>
+        <tr>
+            <td rowspan="1" data-t="n">
+                1
+            </td>
+            <td rowspan="1">
+                ABC1
+            </td>
+            <td rowspan="1">
+                Text 1
+            </td>
+            <td data-t="d">
+                05-20-2018
+            </td>
+            <td data-t="n">
+                2210.00
+            </td>
+        </tr>
+       
+        <tr>
+            <td rowspan="2" data-t="n">
+                2
+            </td>
+            <td rowspan="2">
+                ABC 2
+            </td>
+            <td rowspan="2">
+                Merged cell
+            </td>
+            <td data-t="d">
+                05-21-2018
+            </td>
+            <td  data-t="n">
+                230.00
+            </td>
+        </tr>
+        <tr>
+            
+            <td data-t="d">
+                05-22-2018
+            </td>
+           
+            <td  data-t="n">
+                2493.00
+            </td>
+        </tr>
+      
+
+        <tr>
+            <td colspan="4" align="right" data-f-bold="true" data-a-h="right"><b>Total</b></td>
+            <td colspan="1" align="right" data-t="n"  data-f-bold="true"><b>4933.00</b></td>
+        </tr>
+        </tbody></table>
+    <button id="button-excel" onclick="exportExcel()">Create Excel</button>
+</div>
+<script>
+
+    function exportExcel() {
+        XLSX.utils.html.save_table_as_excel(document.getElementById('test-html-table'), {name: 'test.xlsx'})
+    }
+
+</script>
+</body>
+</html>

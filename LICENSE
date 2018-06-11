@@ -19,3 +19,8 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+Please refer licenses of
+1. https://github.com/protobi/js-xlsx/blob/master/LICENSE
+2. https://github.com/eligrey/FileSaver.js/blob/master/LICENSE.md
+3. https://github.com/SheetJS/js-xlsx/blob/master/LICENSE
