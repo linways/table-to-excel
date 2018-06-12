@@ -24,7 +24,7 @@ XLSX.utils.html.save_table_as_excel(document.getElementById('table1'), {name: 't
 ```
 See [samples/test1.html](https://github.com/linways/table-to-excel/blob/master/samples/test1.html) for working example.
 # Cell Types
-Cell types can be set using `data-t` attribute in each `td` tag.
+Cell types can be set using `data-t` attribute in each `td` tag.   
 Possible values: `b` Boolean, `n` Number, `e` error, `s` String, `d` Date
 Example:
 ```html
