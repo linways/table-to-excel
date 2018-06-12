@@ -47,7 +47,7 @@ function make_html_utils_lib(XLSX) {
                 var o = {t: 's', v: v, s: s};
                 var _t = elt.getAttribute("data-t"); //cell type
                 var _fillFgColor = elt.getAttribute("data-fill-color"); // cell background color
-                    var _fontName = elt.getAttribute("data-f-name"); //font name
+                var _fontName = elt.getAttribute("data-f-name"); //font name
                 var _fontSz = elt.getAttribute("data-f-sz"); //font size
                 var _fontBold = elt.getAttribute("data-f-bold"); // font-bold
                 var _fontColor = elt.getAttribute("data-f-color"); // font-color
