@@ -22,7 +22,8 @@ To export content of table  `#table1` run:
 ```javascript
 XLSX.utils.html.save_table_as_excel(document.getElementById('table1'), {name: 'test.xlsx'})
 ```
-See [samples/test1.html](https://github.com/linways/table-to-excel/blob/master/samples/test1.html) for working example.
+See [samples/test1.html](https://github.com/linways/table-to-excel/blob/master/samples/test1.html) or [this fiddle](https://jsfiddle.net/rohithb/e2h4mbc5/)for working example.
+
 # Cell Types
 Cell types can be set using `data-t` attribute in each `td` tag.   
 Possible values: `b` Boolean, `n` Number, `e` error, `s` String, `d` Date
