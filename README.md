@@ -70,9 +70,9 @@ There are 5 types of attributes: `data-f-*`, `data-a-*`, `data-b-*`, `data-fill-
 |           |                        |                                        | `90` for rotating text 90 degrees                                                           |
 |           |                        |                                        | `255` is special, aligned vertically                                                        |
 | Border    | `data-b-t-s`           | Border top style                       | Refer `BORDER_STYLES`                                                                       |
-|           | `data-b-b-s`           | Border top style                       | Refer `BORDER_STYLES`                                                                       |
-|           | `data-b-l-s`           | Border top style                       | Refer `BORDER_STYLES`                                                                       |
-|           | `data-b-r-s`           | Border top style                       | Refer `BORDER_STYLES`                                                                       |
+|           | `data-b-b-s`           | Border bottom style                       | Refer `BORDER_STYLES`                                                                       |
+|           | `data-b-l-s`           | Border left style                       | Refer `BORDER_STYLES`                                                                       |
+|           | `data-b-r-s`           | Border right style                       | Refer `BORDER_STYLES`                                                                       |
 | Fill      | `data-fill-color`      | Cell background color                  | A hex ARGB value.                                                                           |
 | numFmt    | `data-num-fmt`         | Number Format                          | "0" // integer index to built in formats, see StyleBuilder.SSF property                     |
 |           |                        |                                        | "0.00%" // string matching a built-in format, see StyleBuilder.SSF                          |
