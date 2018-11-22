@@ -72,6 +72,7 @@ function make_html_utils_lib(XLSX) {
         var _b_l_s = elt.getAttribute("data-b-l-s");
         var _b_r_s = elt.getAttribute("data-b-r-s");
         var _b_a_s = elt.getAttribute("data-b-a-s");
+        var _link_target = elt.getAttribute("data-link");
         if (v != null) {
           if (v.length == 0) o.t = _t || "z";
           else if (opts.raw || v.trim().length == 0 || _t == "s") {
@@ -103,6 +104,12 @@ function make_html_utils_lib(XLSX) {
           }
           if (_fillFgColor) {
             o.s.fill = { patternType: "solid", fgColor: { rgb: _fillFgColor } };
+          }
+          if (_link_target) {
+            o.l = {
+              Target: _link_target,
+              Tooltip: _link_target
+            };
           }
         }
         if (opts.dense) {
