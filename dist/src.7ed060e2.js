@@ -44268,6 +44268,11 @@ module.exports = ExcelJS;
 },{"./config/set-value":"../node_modules/exceljs/dist/es5/config/set-value.js","promish/dist/promish-node":"../node_modules/promish/dist/promish-node.js","./doc/workbook":"../node_modules/exceljs/dist/es5/doc/workbook.js","./doc/enums":"../node_modules/exceljs/dist/es5/doc/enums.js"}],"../src/index.js":[function(require,module,exports) {
 "use strict";
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
 var _parser = _interopRequireDefault(require("./parser"));
 
 var _fileSaver = _interopRequireDefault(require("file-saver"));
@@ -44280,21 +44285,20 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-// const ExcelJS = require("../node_modules/exceljs/dist/es5/exceljs.browser");
 var TableToExcel = function (Parser) {
   var methods = {};
 
-  var initWorkBook = function initWorkBook() {
+  methods.initWorkBook = function () {
     var wb = new _exceljs.default.Workbook();
     return wb;
   };
 
-  var initSheet = function initSheet(wb, sheetName) {
+  methods.initSheet = function (wb, sheetName) {
     var ws = wb.addWorksheet(sheetName);
     return ws;
   };
 
-  var save = function save(wb, fileName) {
+  methods.save = function (wb, fileName) {
     wb.xlsx.writeBuffer().then(function (buffer) {
       (0, _fileSaver.default)(new Blob([buffer], {
         type: "application/octet-stream"
@@ -44302,13 +44306,13 @@ var TableToExcel = function (Parser) {
     });
   };
 
-  var tableToSheet = function tableToSheet(wb, table, opts) {
+  methods.tableToSheet = function (wb, table, opts) {
     var ws = initSheet(wb, opts.sheet.name);
     ws = Parser.parseDomToTable(ws, table);
     return wb;
   };
 
-  var tableToBook = function tableToBook(table, opts) {
+  methods.tableToBook = function (table, opts) {
     var wb = initWorkBook();
     wb = tableToSheet(wb, table, opts);
     return wb;
@@ -44329,6 +44333,8 @@ var TableToExcel = function (Parser) {
   return methods;
 }(_parser.default);
 
+var _default = TableToExcel;
+exports.default = _default;
 window.TableToExcel = TableToExcel; // let ExcelJS = require("../node_modules/exceljs/dist/es5/exceljs.browser");
 // import saveAs from "file-saver";
 // var wb = new ExcelJS.Workbook();

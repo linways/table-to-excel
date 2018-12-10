@@ -1,22 +1,24 @@
 import Parser from "./parser";
 import saveAs from "file-saver";
 import ExcelJS from "../node_modules/exceljs/dist/es5/exceljs.browser";
+// const Parser = require("./parser");
+// const saveAs = require("file-saver");
 // const ExcelJS = require("../node_modules/exceljs/dist/es5/exceljs.browser");
 
 const TableToExcel = (function(Parser) {
   let methods = {};
 
-  let initWorkBook = function() {
+  methods.initWorkBook = function() {
     let wb = new ExcelJS.Workbook();
     return wb;
   };
 
-  let initSheet = function(wb, sheetName) {
+  methods.initSheet = function(wb, sheetName) {
     let ws = wb.addWorksheet(sheetName);
     return ws;
   };
 
-  let save = function(wb, fileName) {
+  methods.save = function(wb, fileName) {
     wb.xlsx.writeBuffer().then(function(buffer) {
       saveAs(
         new Blob([buffer], { type: "application/octet-stream" }),
@@ -25,13 +27,13 @@ const TableToExcel = (function(Parser) {
     });
   };
 
-  let tableToSheet = function(wb, table, opts) {
+  methods.tableToSheet = function(wb, table, opts) {
     let ws = initSheet(wb, opts.sheet.name);
     ws = Parser.parseDomToTable(ws, table);
     return wb;
   };
 
-  let tableToBook = function(table, opts) {
+  methods.tableToBook = function(table, opts) {
     let wb = initWorkBook();
     wb = tableToSheet(wb, table, opts);
     return wb;
@@ -52,6 +54,7 @@ const TableToExcel = (function(Parser) {
   return methods;
 })(Parser);
 
+export default TableToExcel;
 window.TableToExcel = TableToExcel;
 // let ExcelJS = require("../node_modules/exceljs/dist/es5/exceljs.browser");
 // import saveAs from "file-saver";
