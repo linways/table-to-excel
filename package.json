@@ -1,0 +1,20 @@
+{
+  "name": "table-to-excel",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "parcel sample/index.html",
+    "build": "parcel build sample/index.js"
+  },
+  "author": "Rohith Bhaskaran",
+  "license": "MIT",
+  "devDependencies": {
+    "parcel-bundler": "^1.10.3"
+  },
+  "dependencies": {
+    "exceljs": "^1.6.3",
+    "file-saver": "^2.0.0",
+    "jszip": "^3.1.5"
+  }
+}
