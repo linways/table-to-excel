@@ -114,11 +114,17 @@ exports.default = void 0;
 
 var TTEParser = function () {
   var methods = {};
+  /**
+   * Parse HTML table to excel worksheet
+   * @param {object} ws The worksheet object
+   * @param {HTML entity} table The table to be converted to excel sheet
+   */
 
   methods.parseDomToTable = function (ws, table) {
-    var _r, _c;
+    var _r, _c, cs, rs;
 
     var rows = table.getElementsByTagName("tr");
+    var merges = [];
 
     for (_r = 0; _r < rows.length; ++_r) {
       var row = rows[_r];
@@ -126,15 +132,38 @@ var TTEParser = function () {
       var exRow = [];
 
       for (_c = 0; _c < cells.length; ++_c) {
-        var cell = cells[_c];
+        var cell = cells[_c]; // calculate merges
+
+        cs = parseInt(cell.getAttribute("colspan")) || 1;
+        rs = parseInt(cell.getAttribute("rowspan")) || 1;
+
+        if (cs > 1 || rs > 1) {
+          merges.push([getExcelColumnName(_c + 1) + (_r + 1), getExcelColumnName(_c + cs) + (_r + rs)]);
+        }
+
         exRow[_c] = htmldecode(cell.innerHTML);
       }
 
       ws.addRow(exRow);
-    }
 
+      if (_r == 0) {
+        // If first row, set width of the columns.
+        for (_c = 0; _c < cells.length; ++_c) {
+          ws.columns[_c].width = Math.round(cells[_c].offsetWidth / 7.2); // convert pixel to character width
+        }
+      }
+    } // applying merges to the sheet
+
+
+    merges.forEach(function (element) {
+      ws.mergeCells(element[0] + ":" + element[1]);
+    });
     return ws;
   };
+  /**
+   * Convert HTML special characters back to normal chars
+   */
+
 
   var htmldecode = function () {
     var entities = [["nbsp", " "], ["middot", "·"], ["quot", '"'], ["apos", "'"], ["gt", ">"], ["lt", "<"], ["amp", "&"]].map(function (x) {
@@ -150,6 +179,20 @@ var TTEParser = function () {
       return o;
     };
   }();
+  /**
+   * Takes a positive integer and returns the corresponding column name.
+   * @param {number} num  The positive integer to convert to a column name.
+   * @return {string}  The column name.
+   */
+
+
+  var getExcelColumnName = function getExcelColumnName(num) {
+    for (var ret = "", a = 1, b = 26; (num -= a) >= 0; a = b, b *= 26) {
+      ret = String.fromCharCode(parseInt(num % b / a) + 65) + ret;
+    }
+
+    return ret;
+  };
 
   return methods;
 }();
@@ -44307,14 +44350,14 @@ var TableToExcel = function (Parser) {
   };
 
   methods.tableToSheet = function (wb, table, opts) {
-    var ws = initSheet(wb, opts.sheet.name);
+    var ws = this.initSheet(wb, opts.sheet.name);
     ws = Parser.parseDomToTable(ws, table);
     return wb;
   };
 
   methods.tableToBook = function (table, opts) {
-    var wb = initWorkBook();
-    wb = tableToSheet(wb, table, opts);
+    var wb = this.initWorkBook();
+    wb = this.tableToSheet(wb, table, opts);
     return wb;
   };
 
@@ -44326,8 +44369,8 @@ var TableToExcel = function (Parser) {
       }
     };
     opts = _objectSpread({}, defaultOpts, opts);
-    var wb = tableToBook(table, opts);
-    save(wb, opts.name);
+    var wb = this.tableToBook(table, opts);
+    this.save(wb, opts.name);
   };
 
   return methods;
@@ -44335,41 +44378,7 @@ var TableToExcel = function (Parser) {
 
 var _default = TableToExcel;
 exports.default = _default;
-window.TableToExcel = TableToExcel; // let ExcelJS = require("../node_modules/exceljs/dist/es5/exceljs.browser");
-// import saveAs from "file-saver";
-// var wb = new ExcelJS.Workbook();
-// var ws = wb.addWorksheet("blort");
-// ws.getCell("A1").value = "Hello, World!";
-// ws.getCell("A2").value = 7;
-// wb.xlsx.writeBuffer().then(function(buffer) {
-//   saveAs(new Blob([buffer], { type: "application/octet-stream" }), "test.xlsx");
-// });
-// saveAs(
-//     new Blob(wb.xlsx.writeBuffer())
-// )
-// wb.xlsx
-//   .writeBuffer()
-//   .then(function(buffer) {
-//     var wb2 = new ExcelJS.Workbook();
-//     return wb2.xlsx.load(buffer).then(function() {
-//       var ws2 = wb2.getWorksheet("blort");
-//       expect(ws2).toBeTruthy();
-//       expect(ws2.getCell("A1").value).toEqual("Hello, World!");
-//       expect(ws2.getCell("A2").value).toEqual(7);
-//       done();
-//     });
-//   })
-//   .catch(function(error) {
-//     throw error;
-//   })
-//   .catch(unexpectedError(done));
-// sheet.columns = [
-//   { header: "Id", key: "id", width: 10 },
-//   { header: "Name", key: "name", width: 32 },
-//   { header: "D.O.B.", key: "dob", width: 10, outlineLevel: 1 }
-// ];
-// sheet.addRow({ id: 1, name: "John Doe", dob: new Date(1970, 1, 1) });
-// sheet.addRow({ id: 2, name: "Jane Doe", dob: new Date(1965, 1, 7) });
+window.TableToExcel = TableToExcel;
 },{"./parser":"../src/parser.js","file-saver":"../node_modules/file-saver/dist/FileSaver.min.js","../node_modules/exceljs/dist/es5/exceljs.browser":"../node_modules/exceljs/dist/es5/exceljs.browser.js"}],"../node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
@@ -44397,7 +44406,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49676" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54459" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
