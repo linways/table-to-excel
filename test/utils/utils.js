@@ -1,14 +1,14 @@
 import TTE from "../../src/index";
 import fs from "fs";
-
+export const defaultOpts = {
+  name: "export.xlsx",
+  sheet: {
+    name: "Sheet 1"
+  }
+};
 export function getWorkSheet(opts = {}) {
-  let defaultOpts = {
-    name: "export.xlsx",
-    sheet: {
-      name: "Sheet 1"
-    }
-  };
-  opts = { ...defaultOpts, ...opts };
+  let _opts = defaultOpts;
+  opts = { ..._opts, ...opts };
   let wb = TTE.initWorkBook();
   return TTE.initSheet(wb, opts.sheet.name);
 }

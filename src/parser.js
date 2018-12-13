@@ -6,33 +6,30 @@ const TTEParser = (function() {
    * @param {object} ws The worksheet object
    * @param {HTML entity} table The table to be converted to excel sheet
    */
-  methods.parseDomToTable = function(ws, table) {
+  methods.parseDomToTable = function(ws, table, opts) {
     let _r, _c, cs, rs;
     let rows = table.getElementsByTagName("tr");
     let merges = [];
     for (_r = 0; _r < rows.length; ++_r) {
       let row = rows[_r];
-      let cells = row.children;
-      let exRow = [];
-      for (_c = 0; _c < cells.length; ++_c) {
-        let cell = cells[_c];
+      let tds = row.children;
+      for (_c = 0; _c < tds.length; ++_c) {
+        let td = tds[_c];
         // calculate merges
-        cs = parseInt(cell.getAttribute("colspan")) || 1;
-        rs = parseInt(cell.getAttribute("rowspan")) || 1;
+        cs = parseInt(td.getAttribute("colspan")) || 1;
+        rs = parseInt(td.getAttribute("rowspan")) || 1;
         if (cs > 1 || rs > 1) {
           merges.push([
             getExcelColumnName(_c + 1) + (_r + 1),
             getExcelColumnName(_c + cs) + (_r + rs)
           ]);
         }
-        exRow[_c] = htmldecode(cell.innerHTML);
-      }
-      ws.addRow(exRow);
-      if (_r == 0) {
+        let exCell = ws.getCell(getColumnAddress(_c + 1, _r + 1));
+        exCell.value = htmldecode(td.innerHTML);
+        let styles = getStylesFromCss(td);
         // If first row, set width of the columns.
-        for (_c = 0; _c < cells.length; ++_c) {
-          ws.columns[_c].width = Math.round(cells[_c].offsetWidth / 7.2); // convert pixel to character width
-        }
+        if (_r == 0)
+          ws.columns[_c].width = Math.round(tds[_c].offsetWidth / 7.2); // convert pixel to character width
       }
     }
     // applying merges to the sheet
@@ -81,6 +78,11 @@ const TTEParser = (function() {
     return ret;
   };
 
+  let getColumnAddress = function(col, row) {
+    return getExcelColumnName(col) + row;
+  };
+
+  let getStylesFromCss = function(td) {};
   return methods;
 })();
 

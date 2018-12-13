@@ -26,7 +26,7 @@ const TableToExcel = (function(Parser) {
 
   methods.tableToSheet = function(wb, table, opts) {
     let ws = this.initSheet(wb, opts.sheet.name);
-    ws = Parser.parseDomToTable(ws, table);
+    ws = Parser.parseDomToTable(ws, table, opts);
     return wb;
   };
 
@@ -39,6 +39,7 @@ const TableToExcel = (function(Parser) {
   methods.convert = function(table, opts) {
     let defaultOpts = {
       name: "export.xlsx",
+      autoStyle: true,
       sheet: {
         name: "Sheet 1"
       }

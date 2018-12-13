@@ -120,7 +120,7 @@ var TTEParser = function () {
    * @param {HTML entity} table The table to be converted to excel sheet
    */
 
-  methods.parseDomToTable = function (ws, table) {
+  methods.parseDomToTable = function (ws, table, opts) {
     var _r, _c, cs, rs;
 
     var rows = table.getElementsByTagName("tr");
@@ -128,29 +128,23 @@ var TTEParser = function () {
 
     for (_r = 0; _r < rows.length; ++_r) {
       var row = rows[_r];
-      var cells = row.children;
-      var exRow = [];
+      var tds = row.children;
 
-      for (_c = 0; _c < cells.length; ++_c) {
-        var cell = cells[_c]; // calculate merges
+      for (_c = 0; _c < tds.length; ++_c) {
+        var td = tds[_c]; // calculate merges
 
-        cs = parseInt(cell.getAttribute("colspan")) || 1;
-        rs = parseInt(cell.getAttribute("rowspan")) || 1;
+        cs = parseInt(td.getAttribute("colspan")) || 1;
+        rs = parseInt(td.getAttribute("rowspan")) || 1;
 
         if (cs > 1 || rs > 1) {
           merges.push([getExcelColumnName(_c + 1) + (_r + 1), getExcelColumnName(_c + cs) + (_r + rs)]);
         }
 
-        exRow[_c] = htmldecode(cell.innerHTML);
-      }
+        var exCell = ws.getCell(getColumnAddress(_c + 1, _r + 1));
+        exCell.value = htmldecode(td.innerHTML);
+        var styles = getStylesFromCss(td); // If first row, set width of the columns.
 
-      ws.addRow(exRow);
-
-      if (_r == 0) {
-        // If first row, set width of the columns.
-        for (_c = 0; _c < cells.length; ++_c) {
-          ws.columns[_c].width = Math.round(cells[_c].offsetWidth / 7.2); // convert pixel to character width
-        }
+        if (_r == 0) ws.columns[_c].width = Math.round(tds[_c].offsetWidth / 7.2); // convert pixel to character width
       }
     } // applying merges to the sheet
 
@@ -193,6 +187,12 @@ var TTEParser = function () {
 
     return ret;
   };
+
+  var getColumnAddress = function getColumnAddress(col, row) {
+    return getExcelColumnName(col) + row;
+  };
+
+  var getStylesFromCss = function getStylesFromCss(td) {};
 
   return methods;
 }();
@@ -44351,7 +44351,7 @@ var TableToExcel = function (Parser) {
 
   methods.tableToSheet = function (wb, table, opts) {
     var ws = this.initSheet(wb, opts.sheet.name);
-    ws = Parser.parseDomToTable(ws, table);
+    ws = Parser.parseDomToTable(ws, table, opts);
     return wb;
   };
 
@@ -44364,6 +44364,7 @@ var TableToExcel = function (Parser) {
   methods.convert = function (table, opts) {
     var defaultOpts = {
       name: "export.xlsx",
+      autoStyle: true,
       sheet: {
         name: "Sheet 1"
       }
@@ -44406,7 +44407,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54459" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58023" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
