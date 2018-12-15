@@ -30,6 +30,7 @@ const TTEParser = (function() {
         if (!opts.autoStyle) {
           let styles = getStylesDataAttr(td);
           exCell.font = styles.font || null;
+          exCell.alignment = styles.alignment || null;
         }
         // If first row, set width of the columns.
         if (_r == 0)
@@ -98,8 +99,23 @@ const TTEParser = (function() {
     if (td.getAttribute("data-f-italic") === "true") font.italic = true;
     if (td.getAttribute("data-f-underline") === "true") font.underline = true;
     if (td.getAttribute("data-f-strike") === "true") font.strike = true;
+
+    // Alignment attrs
+    let alignment = {};
+    if (td.getAttribute("data-a-h"))
+      alignment.horizontal = td.getAttribute("data-a-h");
+    if (td.getAttribute("data-a-v"))
+      alignment.vertical = td.getAttribute("data-a-v");
+    if (td.getAttribute("data-a-wrap") === "true") alignment.wrapText = true;
+    if (td.getAttribute("data-a-text-rotation"))
+      alignment.textRotation = td.getAttribute("data-a-text-rotation");
+    if (td.getAttribute("data-a-indent"))
+      alignment.indent = td.getAttribute("data-a-indent");
+    if (td.getAttribute("data-a-rtl") === "true")
+      alignment.readingOrder = "rtl";
     return {
-      font
+      font,
+      alignment
     };
   };
 

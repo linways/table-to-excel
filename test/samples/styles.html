@@ -6,7 +6,7 @@
         data-f-sz="25"
         data-f-color="FFFFAA00"
         data-a-h="center"
-        data-a-v="center"
+        data-a-v="middle"
         data-f-underline="true"
       >
         Sample Excel
@@ -18,16 +18,17 @@
         data-f-italic="true"
         data-a-h="center"
         data-f-name="Arial"
+        data-a-v="top"
       >
         Italic and horizontal center in Arial
       </td>
     </tr>
     <tr>
       <th data-a-text-rotation="90">Col 1 (number)</th>
-      <th data-a-text-rotation="90" data-f-outline="true">Col 2</th>
+      <th data-a-text-rotation="vertical">Col 2</th>
       <th data-a-wrap="true">Wrapped Text</th>
-      <th data-a-text-rotation="90">Col 4 (date)</th>
-      <th data-a-text-rotation="90">Col 5</th>
+      <th data-a-text-rotation="-45">Col 4 (date)</th>
+      <th data-a-text-rotation="-90">Col 5</th>
     </tr>
     <tr>
       <td rowspan="1" data-t="n">1</td>
@@ -44,7 +45,7 @@
       <td rowspan="2" data-fill-color="FFFF0000" data-f-color="FFFFFFFF">
         ABC 2
       </td>
-      <td rowspan="2">Merged cell</td>
+      <td rowspan="2" data-a-indent="3">Merged cell</td>
       <td data-t="d">05-21-2018</td>
       <td data-t="n" data-b-a-s="dashed" data-num-fmt="$ 0.00">230.00</td>
     </tr>
@@ -72,6 +73,20 @@
         data-num-fmt="$ 0.00"
       >
         <b>4933.00</b>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4" align="right" data-f-bold="true" data-a-rtl="true">
+        <b>RTL Test</b>
+      </td>
+      <td
+        colspan="1"
+        align="right"
+        data-t="n"
+        data-f-bold="true"
+        data-num-fmt="$ 0.00"
+      >
+        <b>2009.00</b>
       </td>
     </tr>
   </tbody>

@@ -70,5 +70,33 @@ describe("Parser", function() {
         expect(ws.getCell("A1").font.italic).to.be.undefined;
       });
     });
+
+    describe("Alignment Attributes", function() {
+      it("should handle horizontal alignment", function() {
+        expect(ws.getCell("A2").alignment.horizontal).to.equals("center");
+      });
+      it("should handle vertical alignment", function() {
+        expect(ws.getCell("A1").alignment.vertical).to.equals("middle");
+        expect(ws.getCell("A2").alignment.vertical).to.equals("top");
+      });
+      it("should handle wrap text properly", function() {
+        expect(ws.getCell("C3").alignment.wrapText).to.equals(true);
+        expect(ws.getCell("C4").alignment.wrapText).to.be.undefined;
+      });
+      it("should handle text rotation properly", function() {
+        expect(ws.getCell("A3").alignment.textRotation).to.equals("90");
+        expect(ws.getCell("B3").alignment.textRotation).to.equals("vertical");
+        expect(ws.getCell("D3").alignment.textRotation).to.equals("-45");
+        expect(ws.getCell("E3").alignment.textRotation).to.equals("-90");
+        expect(ws.getCell("C4").alignment.wrapText).to.be.undefined;
+      });
+      it("should handle indent  properly", function() {
+        expect(ws.getCell("C5").alignment.indent).to.equals("3");
+        expect(ws.getCell("C4").alignment.wrapText).to.be.undefined;
+      });
+      it("should handle text direction properly", function() {
+        expect(ws.getCell("A8").alignment.readingOrder).to.equals("rtl");
+      });
+    });
   });
 });
