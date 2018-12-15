@@ -15,6 +15,7 @@ const TTEParser = (function() {
       let tds = row.children;
       for (_c = 0; _c < tds.length; ++_c) {
         let td = tds[_c];
+        if (td.getAttribute("data-f-outline") === "true") continue;
         // calculate merges
         cs = parseInt(td.getAttribute("colspan")) || 1;
         rs = parseInt(td.getAttribute("rowspan")) || 1;
@@ -26,7 +27,10 @@ const TTEParser = (function() {
         }
         let exCell = ws.getCell(getColumnAddress(_c + 1, _r + 1));
         exCell.value = htmldecode(td.innerHTML);
-        let styles = getStylesFromCss(td);
+        if (!opts.autoStyle) {
+          let styles = getStylesDataAttr(td);
+          exCell.font = styles.font || null;
+        }
         // If first row, set width of the columns.
         if (_r == 0)
           ws.columns[_c].width = Math.round(tds[_c].offsetWidth / 7.2); // convert pixel to character width
@@ -82,7 +86,23 @@ const TTEParser = (function() {
     return getExcelColumnName(col) + row;
   };
 
-  let getStylesFromCss = function(td) {};
+  let getStylesDataAttr = function(td) {
+    //Font attrs
+    let font = {};
+    if (td.getAttribute("data-f-name"))
+      font.name = td.getAttribute("data-f-name");
+    if (td.getAttribute("data-f-sz")) font.size = td.getAttribute("data-f-sz");
+    if (td.getAttribute("data-f-color"))
+      font.color = { argb: td.getAttribute("data-f-color") };
+    if (td.getAttribute("data-f-bold") === "true") font.bold = true;
+    if (td.getAttribute("data-f-italic") === "true") font.italic = true;
+    if (td.getAttribute("data-f-underline") === "true") font.underline = true;
+    if (td.getAttribute("data-f-strike") === "true") font.strike = true;
+    return {
+      font
+    };
+  };
+
   return methods;
 })();
 

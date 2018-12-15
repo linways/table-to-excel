@@ -131,7 +131,8 @@ var TTEParser = function () {
       var tds = row.children;
 
       for (_c = 0; _c < tds.length; ++_c) {
-        var td = tds[_c]; // calculate merges
+        var td = tds[_c];
+        if (td.getAttribute("data-f-outline") === "true") continue; // calculate merges
 
         cs = parseInt(td.getAttribute("colspan")) || 1;
         rs = parseInt(td.getAttribute("rowspan")) || 1;
@@ -142,7 +143,12 @@ var TTEParser = function () {
 
         var exCell = ws.getCell(getColumnAddress(_c + 1, _r + 1));
         exCell.value = htmldecode(td.innerHTML);
-        var styles = getStylesFromCss(td); // If first row, set width of the columns.
+
+        if (!opts.autoStyle) {
+          var styles = getStylesDataAttr(td);
+          exCell.font = styles.font || null;
+        } // If first row, set width of the columns.
+
 
         if (_r == 0) ws.columns[_c].width = Math.round(tds[_c].offsetWidth / 7.2); // convert pixel to character width
       }
@@ -192,7 +198,22 @@ var TTEParser = function () {
     return getExcelColumnName(col) + row;
   };
 
-  var getStylesFromCss = function getStylesFromCss(td) {};
+  var getStylesDataAttr = function getStylesDataAttr(td) {
+    //Font attrs
+    var font = {};
+    if (td.getAttribute("data-f-name")) font.name = td.getAttribute("data-f-name");
+    if (td.getAttribute("data-f-sz")) font.size = td.getAttribute("data-f-sz");
+    if (td.getAttribute("data-f-color")) font.color = {
+      argb: td.getAttribute("data-f-color")
+    };
+    if (td.getAttribute("data-f-bold") === "true") font.bold = true;
+    if (td.getAttribute("data-f-italic") === "true") font.italic = true;
+    if (td.getAttribute("data-f-underline") === "true") font.underline = true;
+    if (td.getAttribute("data-f-strike") === "true") font.strike = true;
+    return {
+      font: font
+    };
+  };
 
   return methods;
 }();
@@ -44364,7 +44385,7 @@ var TableToExcel = function (Parser) {
   methods.convert = function (table, opts) {
     var defaultOpts = {
       name: "export.xlsx",
-      autoStyle: true,
+      autoStyle: false,
       sheet: {
         name: "Sheet 1"
       }
@@ -44407,7 +44428,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "58023" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52599" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

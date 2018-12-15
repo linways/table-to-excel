@@ -9,36 +9,93 @@
   </head>
   <body>
     <div id="wrapper">
-      <table id="simpleTable1">
-        <thead>
-          <tr>
-            <td>#</td>
-            <td>City</td>
-            <td>Country</td>
-          </tr>
-        </thead>
+      <table border="1" class="" width="100%" id="simpleTable1" data-cols-width="20,15,10">
         <tbody>
           <tr>
-            <td>1</td>
-            <td colspan="2" rowspan="2">Jinshanpu</td>
+            <td colspan="5" data-f-sz="25" data-f-color="FFFFAA00" data-a-h="center" data-a-v="center" data-f-underline="true">
+              Sample Excel
+            </td>
           </tr>
           <tr>
-            <td>2</td>
+            <td colspan="5" data-f-italic="true" data-a-h="center" data-f-name="Arial">
+              Italic and horizontal center in Arial
+            </td>
           </tr>
           <tr>
-            <td colspan="3">Russia</td>
+            <th data-a-text-rotation="90">Col 1 (number)</th>
+            <th data-a-text-rotation="90">Col 2</th>
+            <th data-a-wrap="true">Wrapped Text</th>
+            <th data-a-text-rotation="90">Col 4 (date)</th>
+            <th data-a-text-rotation="90">Col 5</th>
           </tr>
           <tr>
-            <td>3</td>
-            <td>Lugu</td>
-            <td rowspan="2">China</td>
+            <td rowspan="1" data-t="n">1</td>
+            <td rowspan="1" data-b-b-s="thick" data-b-l-s="thick" data-b-r-s="thick">
+              ABC1
+            </td>
+            <td rowspan="1" data-f-strike="true">Striked Text</td>
+            <td data-t="d">05-20-2018</td>
+            <td data-t="n" data-num-fmt="$ 0.00">2210.00</td>
+          </tr>
+
+          <tr>
+            <td rowspan="2" data-t="n">2</td>
+            <td rowspan="2" data-fill-color="FFFF0000" data-f-color="FFFFFFFF">
+              ABC 2
+            </td>
+            <td rowspan="2">Merged cell</td>
+            <td data-t="d">05-21-2018</td>
+            <td data-t="n" data-b-a-s="dashed" data-num-fmt="$ 0.00">230.00</td>
           </tr>
           <tr>
-            <td>3</td>
-            <td>Guanting</td>
+            <td data-t="d">05-22-2018</td>
+
+            <td data-t="n" data-num-fmt="$ 0.00">2493.00</td>
+          </tr>
+
+          <tr>
+            <td colspan="4" align="right" data-f-bold="true" data-a-h="right" data-link="https://google.com">
+              <b><a href="https://google.com">Hyperlink</a></b>
+            </td>
+            <td colspan="1" align="right" data-t="n" data-f-bold="true" data-num-fmt="$ 0.00">
+              <b>4933.00</b>
+            </td>
           </tr>
         </tbody>
       </table>
+
+      <!--
+        <table id="simpleTable1">
+          <thead>
+            <tr>
+              <td>#</td>
+              <td>City</td>
+              <td data-f-color="FFFF0000">Country</td>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td colspan="2" rowspan="2">Jinshanpu</td>
+            </tr>
+            <tr>
+              <td>2</td>
+            </tr>
+            <tr>
+              <td colspan="3">Russia</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Lugu</td>
+              <td rowspan="2">China</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Guanting</td>
+            </tr>
+          </tbody>
+        </table>
+      -->
 
       <button id="button-excel" onclick="exportExcel()">Create Excel</button>
     </div>

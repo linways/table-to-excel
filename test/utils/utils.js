@@ -2,6 +2,7 @@ import TTE from "../../src/index";
 import fs from "fs";
 export const defaultOpts = {
   name: "export.xlsx",
+  autoStyle: false,
   sheet: {
     name: "Sheet 1"
   }
