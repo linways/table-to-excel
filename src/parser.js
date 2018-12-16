@@ -26,11 +26,14 @@ const TTEParser = (function() {
           ]);
         }
         let exCell = ws.getCell(getColumnAddress(_c + 1, _r + 1));
-        exCell.value = htmldecode(td.innerHTML);
+        exCell.value = getValue(td);
         if (!opts.autoStyle) {
           let styles = getStylesDataAttr(td);
           exCell.font = styles.font || null;
           exCell.alignment = styles.alignment || null;
+          exCell.border = styles.border || null;
+          exCell.fill = styles.fill || null;
+          exCell.numFmt = styles.numFmt || null;
         }
         // If first row, set width of the columns.
         if (_r == 0)
@@ -87,6 +90,45 @@ const TTEParser = (function() {
     return getExcelColumnName(col) + row;
   };
 
+  /**
+   * Checks the data type specified and conerts the value to it.
+   * @param {HTML entity} td
+   */
+  let getValue = function(td) {
+    let dataType = td.getAttribute("data-t");
+    let rawVal = htmldecode(td.innerHTML);
+    if (dataType) {
+      let val;
+      switch (dataType) {
+        case "n": //number
+          val = Number(rawVal);
+          break;
+        case "d": //date
+          val = Date(rawVal);
+          break;
+        case "b": //boolean
+          val =
+            rawVal === "true"
+              ? true
+              : rawVal === "false"
+              ? false
+              : Boolean(rawVal);
+          break;
+        default:
+          val = rawVal;
+      }
+      return val;
+    } else if (td.getAttribute("data-hyperlink")) {
+      return {
+        text: rawVal,
+        hyperlink: td.getAttribute("data-hyperlink")
+      };
+    } else if (td.getAttribute("data-error")) {
+      return { error: td.getAttribute("data-error") };
+    }
+    return rawVal;
+  };
+
   let getStylesDataAttr = function(td) {
     //Font attrs
     let font = {};
@@ -113,9 +155,70 @@ const TTEParser = (function() {
       alignment.indent = td.getAttribute("data-a-indent");
     if (td.getAttribute("data-a-rtl") === "true")
       alignment.readingOrder = "rtl";
+
+    // Border attrs
+    let border = {
+      top: {},
+      left: {},
+      bottom: {},
+      right: {}
+    };
+
+    if (td.getAttribute("data-b-a-s")) {
+      let style = td.getAttribute("data-b-a-s");
+      border.top.style = style;
+      border.left.style = style;
+      border.bottom.style = style;
+      border.right.style = style;
+    }
+    if (td.getAttribute("data-b-a-c")) {
+      let color = { argb: td.getAttribute("data-b-a-c") };
+      border.top.color = color;
+      border.left.color = color;
+      border.bottom.color = color;
+      border.right.color = color;
+    }
+    if (td.getAttribute("data-b-t-s")) {
+      border.top.style = td.getAttribute("data-b-t-s");
+      if (td.getAttribute("data-b-t-c"))
+        border.top.color = { argb: td.getAttribute("data-b-t-c") };
+    }
+    if (td.getAttribute("data-b-l-s")) {
+      border.left.style = td.getAttribute("data-b-l-s");
+      if (td.getAttribute("data-b-l-c"))
+        border.left.color = { argb: td.getAttribute("data-b-t-c") };
+    }
+    if (td.getAttribute("data-b-b-s")) {
+      border.bottom.style = td.getAttribute("data-b-b-s");
+      if (td.getAttribute("data-b-b-c"))
+        border.bottom.color = { argb: td.getAttribute("data-b-t-c") };
+    }
+    if (td.getAttribute("data-b-r-s")) {
+      border.right.style = td.getAttribute("data-b-r-s");
+      if (td.getAttribute("data-b-r-c"))
+        border.right.color = { argb: td.getAttribute("data-b-t-c") };
+    }
+
+    //Fill
+    let fill;
+    if (td.getAttribute("data-fill-color")) {
+      fill = {
+        type: "pattern",
+        pattern: "solid",
+        fgColor: { argb: td.getAttribute("data-fill-color") }
+      };
+    }
+    //number format
+    let numFmt;
+    if (td.getAttribute("data-num-fmt"))
+      numFmt = td.getAttribute("data-num-fmt");
+
     return {
       font,
-      alignment
+      alignment,
+      border,
+      fill,
+      numFmt
     };
   };
 

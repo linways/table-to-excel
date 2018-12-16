@@ -98,5 +98,43 @@ describe("Parser", function() {
         expect(ws.getCell("A8").alignment.readingOrder).to.equals("rtl");
       });
     });
+
+    describe("Border Attributes", function() {
+      it("handle all border set by b-a-s", function() {
+        expect(ws.getCell("A9").border.top.style).to.equals("dashed");
+        expect(ws.getCell("A9").border.left.style).to.equals("dashed");
+        expect(ws.getCell("A9").border.bottom.style).to.equals("dashed");
+        expect(ws.getCell("A9").border.right.style).to.equals("dashed");
+      });
+      it("handle border set independently", function() {
+        expect(ws.getCell("A11").border.top.style).to.equals("thick");
+        expect(ws.getCell("A11").border.left.style).to.equals("thick");
+        expect(ws.getCell("A11").border.bottom.style).to.equals("thick");
+        expect(ws.getCell("A11").border.right.style).to.equals("thick");
+      });
+      it("handle border color set by b-a-c", function() {
+        let color = { argb: "FFFF0000" };
+        expect(ws.getCell("A9").border.top.color).to.deep.equals(color);
+        expect(ws.getCell("A9").border.left.color).to.deep.equals(color);
+        expect(ws.getCell("A9").border.bottom.color).to.deep.equals(color);
+        expect(ws.getCell("A9").border.right.color).to.deep.equals(color);
+      });
+      it("handle border color set independently", function() {
+        let color = { argb: "FF00FF00" };
+        expect(ws.getCell("A11").border.top.color).to.deep.equals(color);
+        expect(ws.getCell("A11").border.left.color).to.deep.equals(color);
+        expect(ws.getCell("A11").border.bottom.color).to.deep.equals(color);
+        expect(ws.getCell("A11").border.right.color).to.deep.equals(color);
+      });
+    });
+
+    describe("Fill Attributes", function() {
+      it("should handle fill color properly", function() {
+        expect(ws.getCell("B5").fill.pattern).to.equals("solid");
+        expect(ws.getCell("B5").fill.fgColor).to.deep.equals({
+          argb: "FFFF0000"
+        });
+      });
+    });
   });
 });

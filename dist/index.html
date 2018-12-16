@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="wrapper">
-      <table border="1" class="" width="100%" id="simpleTable1" data-cols-width="20,15,10">
+      <table id="simpleTable1" data-cols-width="20,15,10">
         <tbody>
           <tr>
             <td colspan="5" data-f-sz="25" data-f-color="FFFFAA00" data-a-h="center" data-a-v="middle" data-f-underline="true">
@@ -17,7 +17,7 @@
             </td>
           </tr>
           <tr>
-            <td colspan="5" data-f-italic="true" data-a-h="center" data-f-name="Arial">
+            <td colspan="5" data-f-italic="true" data-a-h="center" data-f-name="Arial" data-a-v="top">
               Italic and horizontal center in Arial
             </td>
           </tr>
@@ -54,57 +54,34 @@
           </tr>
 
           <tr>
-            <td colspan="4" align="right" data-f-bold="true" data-a-h="right" data-link="https://google.com">
+            <td colspan="4" align="right" data-f-bold="true" data-a-h="right" data-hyperlink="https://google.com">
               <b><a href="https://google.com">Hyperlink</a></b>
             </td>
             <td colspan="1" align="right" data-t="n" data-f-bold="true" data-num-fmt="$ 0.00">
               <b>4933.00</b>
             </td>
           </tr>
-
           <tr>
-            <td colspan="4" data-f-bold="true" data-a-rtl="true">
-              <b>مرحبا</b>
+            <td colspan="4" align="right" data-f-bold="true" data-a-rtl="true">
+              مرحبا
             </td>
             <td colspan="1" align="right" data-t="n" data-f-bold="true" data-num-fmt="$ 0.00">
               <b>2009.00</b>
             </td>
           </tr>
+          <tr>
+            <td data-b-a-s="dashed" data-b-a-c="FFFF0000">All borders</td>
+          </tr>
+          <tr>
+            <td></td>
+          </tr>
+          <tr>
+            <td data-b-t-s="thick" data-b-l-s="thick" data-b-b-s="thick" data-b-r-s="thick" data-b-t-c="FF00FF00" data-b-l-c="FF00FF00" data-b-b-c="FF00FF00" data-b-r-c="FF00FF00">
+              All borders separately
+            </td>
+          </tr>
         </tbody>
       </table>
-
-      <!--
-        <table id="simpleTable1">
-          <thead>
-            <tr>
-              <td>#</td>
-              <td>City</td>
-              <td data-f-color="FFFF0000">Country</td>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td colspan="2" rowspan="2">Jinshanpu</td>
-            </tr>
-            <tr>
-              <td>2</td>
-            </tr>
-            <tr>
-              <td colspan="3">Russia</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Lugu</td>
-              <td rowspan="2">China</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Guanting</td>
-            </tr>
-          </tbody>
-        </table>
-      -->
 
       <button id="button-excel" onclick="exportExcel()">Create Excel</button>
     </div>
