@@ -137,4 +137,55 @@ describe("Parser", function() {
       });
     });
   });
+
+  describe("Data Type", function() {
+    var ws;
+    beforeEach(function() {
+      let table = getTable("styles");
+      ws = getWorkSheet();
+      ws = Parser.parseDomToTable(ws, table, _opts);
+    });
+    it("should handle number", function() {
+      expect(ws.getCell("A4").value).to.be.a("number");
+      expect(ws.getCell("B4").value).to.be.a("string");
+    });
+    it("should handle date", function() {
+      expect(ws.getCell("D4").value).to.be.a("date");
+    });
+    it("should handle boolean", function() {
+      expect(ws.getCell("A10").value).to.be.a("boolean");
+      expect(ws.getCell("A10").value).to.equals(true);
+      expect(ws.getCell("B10").value).to.be.a("boolean");
+      expect(ws.getCell("B10").value).to.equals(false);
+      expect(ws.getCell("C10").value).to.be.a("boolean");
+      expect(ws.getCell("C10").value).to.equals(true);
+      expect(ws.getCell("D10").value).to.be.a("boolean");
+      expect(ws.getCell("D10").value).to.equals(false);
+    });
+    it("should handle hyperlink", function() {
+      expect(ws.getCell("A7").value.text).to.exist;
+      expect(ws.getCell("A7").value.hyperlink).to.exist;
+    });
+    it("should handle error", function() {
+      expect(ws.getCell("E10").value.error).to.exist;
+    });
+  });
+
+  describe("Exclude row and cell", function() {
+    it("should handle exclude row", function() {
+      let table = getTable("styles");
+      let ws = getWorkSheet();
+      ws = Parser.parseDomToTable(ws, table, _opts);
+      let actualsRows = [...table.getElementsByTagName("tr")];
+      expect(ws.rowCount).to.equals(actualsRows.length - 1);
+    });
+    it("should handle exclude cell", function() {
+      let table = getTable("styles");
+      let ws = getWorkSheet();
+      ws = Parser.parseDomToTable(ws, table, _opts);
+      let actualsRows = [...table.getElementsByTagName("tr")];
+      let actualCells = [...actualsRows[12].children];
+      expect(ws.getRow(12).cellCount).to.equals(actualCells.length - 1);
+    });
+  });
 });

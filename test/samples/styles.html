@@ -93,7 +93,11 @@
       <td data-b-a-s="dashed" data-b-a-c="FFFF0000">All borders</td>
     </tr>
     <tr>
-      <td></td>
+      <td data-t="b">true</td>
+      <td data-t="b">false</td>
+      <td data-t="b">1</td>
+      <td data-t="b">0</td>
+      <td data-error="#VALUE!">Value Error</td>
     </tr>
     <tr>
       <td
@@ -108,6 +112,15 @@
       >
         All borders separately
       </td>
+    </tr>
+    <tr data-exclude="true">
+      <td>Excluded row</td>
+      <td>Something</td>
+    </tr>
+    <tr>
+      <td>Included Cell</td>
+      <td data-exclude="true">Excluded Cell</td>
+      <td>Included Cell</td>
     </tr>
   </tbody>
 </table>

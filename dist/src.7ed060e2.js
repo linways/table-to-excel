@@ -112,6 +112,14 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
+
 var TTEParser = function () {
   var methods = {};
   /**
@@ -123,16 +131,30 @@ var TTEParser = function () {
   methods.parseDomToTable = function (ws, table, opts) {
     var _r, _c, cs, rs;
 
-    var rows = table.getElementsByTagName("tr");
+    var rows = _toConsumableArray(table.getElementsByTagName("tr"));
+
     var merges = [];
 
     for (_r = 0; _r < rows.length; ++_r) {
       var row = rows[_r];
-      var tds = row.children;
+
+      if (row.getAttribute("data-exclude") === "true") {
+        rows.splice(_r, 1);
+        _r--;
+        continue;
+      }
+
+      var tds = _toConsumableArray(row.children);
 
       for (_c = 0; _c < tds.length; ++_c) {
         var td = tds[_c];
-        if (td.getAttribute("data-f-outline") === "true") continue; // calculate merges
+
+        if (td.getAttribute("data-exclude") === "true") {
+          tds.splice(_c, 1);
+          _c--;
+          continue;
+        } // calculate merges
+
 
         cs = parseInt(td.getAttribute("colspan")) || 1;
         rs = parseInt(td.getAttribute("rowspan")) || 1;
@@ -165,7 +187,7 @@ var TTEParser = function () {
     return ws;
   };
   /**
-   * Convert HTML special characters back to normal chars
+   * Convert HTML to plain text
    */
 
 
@@ -222,12 +244,12 @@ var TTEParser = function () {
 
         case "d":
           //date
-          val = Date(rawVal);
+          val = new Date(rawVal);
           break;
 
         case "b":
           //boolean
-          val = rawVal === "true" ? true : rawVal === "false" ? false : Boolean(rawVal);
+          val = rawVal === "true" ? true : rawVal === "false" ? false : Boolean(parseInt(rawVal));
           break;
 
         default:
@@ -248,6 +270,11 @@ var TTEParser = function () {
 
     return rawVal;
   };
+  /**
+   * Prepares the style object for a cell using the data attributes
+   * @param {HTML entity} td
+   */
+
 
   var getStylesDataAttr = function getStylesDataAttr(td) {
     //Font attrs

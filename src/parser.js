@@ -8,14 +8,23 @@ const TTEParser = (function() {
    */
   methods.parseDomToTable = function(ws, table, opts) {
     let _r, _c, cs, rs;
-    let rows = table.getElementsByTagName("tr");
+    let rows = [...table.getElementsByTagName("tr")];
     let merges = [];
     for (_r = 0; _r < rows.length; ++_r) {
       let row = rows[_r];
-      let tds = row.children;
+      if (row.getAttribute("data-exclude") === "true") {
+        rows.splice(_r, 1);
+        _r--;
+        continue;
+      }
+      let tds = [...row.children];
       for (_c = 0; _c < tds.length; ++_c) {
         let td = tds[_c];
-        if (td.getAttribute("data-f-outline") === "true") continue;
+        if (td.getAttribute("data-exclude") === "true") {
+          tds.splice(_c, 1);
+          _c--;
+          continue;
+        }
         // calculate merges
         cs = parseInt(td.getAttribute("colspan")) || 1;
         rs = parseInt(td.getAttribute("rowspan")) || 1;
@@ -48,7 +57,7 @@ const TTEParser = (function() {
   };
 
   /**
-   * Convert HTML special characters back to normal chars
+   * Convert HTML to plain text
    */
   let htmldecode = (function() {
     let entities = [
@@ -104,7 +113,7 @@ const TTEParser = (function() {
           val = Number(rawVal);
           break;
         case "d": //date
-          val = Date(rawVal);
+          val = new Date(rawVal);
           break;
         case "b": //boolean
           val =
@@ -112,7 +121,7 @@ const TTEParser = (function() {
               ? true
               : rawVal === "false"
               ? false
-              : Boolean(rawVal);
+              : Boolean(parseInt(rawVal));
           break;
         default:
           val = rawVal;
@@ -129,6 +138,10 @@ const TTEParser = (function() {
     return rawVal;
   };
 
+  /**
+   * Prepares the style object for a cell using the data attributes
+   * @param {HTML entity} td
+   */
   let getStylesDataAttr = function(td) {
     //Font attrs
     let font = {};
