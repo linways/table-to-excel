@@ -145,11 +145,11 @@
 
       <button id="button-excel" onclick="exportExcel()">Create Excel</button>
     </div>
-    <script src="../src/index.js"></script>
+    <script src="../src/tableToExcel.js"></script>
 
     <script>
       function exportExcel() {
-        TableToExcel.convert(document.getElementById("simpleTable1"), {});
+        TableToExcel.convert(document.getElementById("simpleTable1"));
       }
     </script>
   </body>

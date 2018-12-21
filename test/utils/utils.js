@@ -1,4 +1,4 @@
-import TTE from "../../src/index";
+import TTE from "../../src/tableToExcel2";
 import fs from "fs";
 export const defaultOpts = {
   name: "export.xlsx",

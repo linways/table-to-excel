@@ -36,7 +36,7 @@ const TableToExcel = (function(Parser) {
     return wb;
   };
 
-  methods.convert = function(table, opts) {
+  methods.convert = function(table, opts = {}) {
     let defaultOpts = {
       name: "export.xlsx",
       autoStyle: false,
