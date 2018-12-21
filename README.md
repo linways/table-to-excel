@@ -75,6 +75,7 @@ There are 5 types of attributes: `data-f-*`, `data-a-*`, `data-b-*`, `data-fill-
 |           |                        |                                        | "0.0%" // string specifying a custom format                                                 |
 |           |                        |                                        | "0.00%;\\(0.00%\\);\\-;@" // string specifying a custom format, escaping special characters |
 | Exclude   | `data-exclude`         | Exclude this cell in the exported xlsx | `true`                                                                                      |
+| Hyperlink | `data-hyperlink`       | To add hyperlink to a cell             |                                                                                             |
 
 **`BORDER_STYLES:`** `thin`, `medium`, `thick`, `dotted`, `hair`, `dashed`, `mediumDashed`, `dashDot`, `mediumDashDot`, `dashDotDot` `mediumDashDotDot` `slantDashDot`
 
