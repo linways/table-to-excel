@@ -9,7 +9,7 @@
   </head>
   <body>
     <div id="wrapper">
-      <table id="simpleTable1" data-cols-width="20,15,10">
+      <table id="simpleTable1" data-cols-width="70,15,10">
         <tbody>
           <tr>
             <td colspan="5" data-f-sz="25" data-f-color="FFFFAA00" data-a-h="center" data-a-v="middle" data-f-underline="true">
@@ -98,10 +98,10 @@
 
       <button id="button-excel" onclick="exportExcel()">Create Excel</button>
     </div>
-    <script src="/src.7ed060e2.js"></script>
+    <script src="/tableToExcel.517b1af9.js"></script>
 
     <script>function exportExcel() {
-  TableToExcel.convert(document.getElementById("simpleTable1"), {});
+  TableToExcel.convert(document.getElementById("simpleTable1"));
 }</script>
   </body>
 </html>

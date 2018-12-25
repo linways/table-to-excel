@@ -188,4 +188,12 @@ describe("Parser", function() {
       expect(ws.getRow(12).cellCount).to.equals(actualCells.length - 1);
     });
   });
+  describe("Column widths", function() {
+    it("Should handle the col widths", function() {
+      let table = getTable("styles");
+      let ws = getWorkSheet();
+      ws = Parser.parseDomToTable(ws, table, _opts);
+      expect(ws.columns[0].width).to.equals(70);
+    });
+  });
 });

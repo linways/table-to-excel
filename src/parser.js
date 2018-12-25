@@ -8,7 +8,12 @@ const TTEParser = (function() {
    */
   methods.parseDomToTable = function(ws, table, opts) {
     let _r, _c, cs, rs;
+    let widths = table.getAttribute("data-cols-width");
     let rows = [...table.getElementsByTagName("tr")];
+    if (widths)
+      widths = widths.split(",").map(function(item) {
+        return parseInt(item);
+      });
     let merges = [];
     for (_r = 0; _r < rows.length; ++_r) {
       let row = rows[_r];
@@ -45,10 +50,16 @@ const TTEParser = (function() {
           exCell.numFmt = styles.numFmt || null;
         }
         // If first row, set width of the columns.
-        if (_r == 0)
-          ws.columns[_c].width = Math.round(tds[_c].offsetWidth / 7.2); // convert pixel to character width
+        if (_r == 0) {
+          // ws.columns[_c].width = Math.round(tds[_c].offsetWidth / 7.2); // convert pixel to character width
+        }
       }
     }
+    //Setting column width
+    if (widths)
+      widths.forEach((width, _i) => {
+        ws.columns[_i].width = width;
+      });
     // applying merges to the sheet
     merges.forEach(element => {
       ws.mergeCells(element[0] + ":" + element[1]);
