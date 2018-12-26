@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "parcel sample/index.html",
-    "build": "parcel build src/tableToExcel.js --experimental-scope-hoisting",
+    "build": "parcel build src/tableToExcel.js",
+    "build-tree-shake": "parcel build src/tableToExcel.js --experimental-scope-hoisting",
     "test": "mocha -r @babel/register -r @babel/polyfill -r jsdom-global/register  --watch --recursive"
   },
   "author": "Rohith Bhaskaran",
