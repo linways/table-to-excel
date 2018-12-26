@@ -131,10 +131,9 @@ var TTEParser = function () {
   methods.parseDomToTable = function (ws, table, opts) {
     var _r, _c, cs, rs;
 
-    var widths = table.getAttribute("data-cols-width");
-
     var rows = _toConsumableArray(table.getElementsByTagName("tr"));
 
+    var widths = table.getAttribute("data-cols-width");
     if (widths) widths = widths.split(",").map(function (item) {
       return parseInt(item);
     });
@@ -44599,7 +44598,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62168" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51725" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

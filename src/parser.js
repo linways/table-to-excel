@@ -8,8 +8,8 @@ const TTEParser = (function() {
    */
   methods.parseDomToTable = function(ws, table, opts) {
     let _r, _c, cs, rs;
-    let widths = table.getAttribute("data-cols-width");
     let rows = [...table.getElementsByTagName("tr")];
+    let widths = table.getAttribute("data-cols-width");
     if (widths)
       widths = widths.split(",").map(function(item) {
         return parseInt(item);

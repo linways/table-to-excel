@@ -18,6 +18,10 @@ export function getTable(filename) {
   if (filename) {
     let path = __dirname + "/../samples/" + filename + ".html";
     let htmlString = fs.readFileSync(path, "utf8");
-    return new window.DOMParser().parseFromString(htmlString, "text/xml");
+    let document = new window.DOMParser().parseFromString(
+      htmlString,
+      "text/xml"
+    );
+    return document.firstChild;
   }
 }
