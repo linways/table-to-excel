@@ -11,7 +11,7 @@ This library uses [guyonroche/exceljs](https://github.com/guyonroche/exceljs) un
 Just add a script tag:
 
 ```html
-<script type="text/javascript" src="../dist/tableToExcel2.js"></script>
+<script type="text/javascript" src="../dist/tableToExcel.js"></script>
 ```
 
 # Usage
@@ -34,12 +34,17 @@ TableToExcel.convert(document.getElementById("table1"), {
 });
 ```
 
-See [samples/index.html]() or [this fiddle](https://jsfiddle.net/rohithb/e2h4mbc5/)for working example.
+<!-- See [samples/index.html]() or [this fiddle](https://jsfiddle.net/rohithb/e2h4mbc5/)for working example. -->
 
 # Cell Types
 
-Cell types can be set using `data-t` attribute in each `td` tag.  
-Possible values: `b` Boolean, `n` Number, `e` error, `s` String, `d` Date
+Cell types can be set using the following data attributes:  
+|Attribute| Description| Possible Values|
+|---------|------------|----------------|
+|`data-t`| To specify the data type of a cell| `s` : String (Default)<br> `n` : Number <br> `b` : Boolean <br> `d` : Date|
+|`data-hyperlink`| To add hyper link to cell | External URL or hyperlink to another sheet|
+|`data-error`| To add value of a cell as error| |
+
 Example:
 
 ```html
@@ -47,46 +52,79 @@ Example:
 <td data-t="n">2500</td>
 <!-- for setting a cell type as date -->
 <td data-t="d">05-23-2018</td>
+<!-- for setting a cell type as boolean. String "true/false" will be accepted as Boolean-->
+<td data-t="b">true</td>
+<!-- for setting a cell type as boolean using integer. 0 will be false and any non zero value will be true -->
+<td data-t="b">0</td>
+<!-- For adding hyperlink -->
+<td data-hyperlink="https://google.com">Google</td>
 ```
 
 # Cell Styling
 
 All styles are set using `data` attributes on `td` tags.
-There are 5 types of attributes: `data-f-*`, `data-a-*`, `data-b-*`, `data-fill-*` and `data-num-fmt` which corresponds to five top-level attributes `font`, `alignment`, `border`, `fill` and `numFmt` specified in [js-xlsx](https://github.com/protobi/js-xlsx).
+There are 5 types of attributes: `data-f-*`, `data-a-*`, `data-b-*`, `data-fill-*` and `data-num-fmt` which corresponds to five top-level attributes `font`, `alignment`, `border`, `fill` and `numFmt`.
 
-| Category  | Attribute              | Description                            | Values                                                                                      |
-| --------- | ---------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------- |
-| font      | `data-f-name`          | Font name                              | "Calibri" // default. Eg: "Arial"                                                           |
-|           | `data-f-sz`            | Font size                              | "11" // font size in points                                                                 |
-|           | `data-f-color`         | Font color                             | A hex ARGB value. Eg: FFFFOOOO for opaque red.                                              |
-|           | `data-f-bold`          | Bold                                   | `true` or `false`                                                                           |
-|           | `data-f-italic`        | Italic                                 | `true` or `false`                                                                           |
-|           | `data-f-strike`        | Strike                                 | `true` or `false`                                                                           |
-| Alignment | `data-a-h`             | Horizontal alignment                   | `left` or `center` or `right`                                                               |
-|           | `data-a-v`             | Vertical alignment                     | `bottom` or `center` or `top`                                                               |
-|           | `data-a-wrap`          | Wrap text                              | `true` or `false`                                                                           |
-|           | `data-a-text-rotation` | Text rotation                          | Number from 0 to 180 or 255 (default is 0)                                                  |
-|           |                        |                                        | `90` for rotating text 90 degrees                                                           |
-|           |                        |                                        | `255` is special, aligned vertically                                                        |
-| Border    | `data-b-t-s`           | Border top style                       | Refer `BORDER_STYLES`                                                                       |
-|           | `data-b-b-s`           | Border bottom style                    | Refer `BORDER_STYLES`                                                                       |
-|           | `data-b-l-s`           | Border left style                      | Refer `BORDER_STYLES`                                                                       |
-|           | `data-b-r-s`           | Border right style                     | Refer `BORDER_STYLES`                                                                       |
-| Fill      | `data-fill-color`      | Cell background color                  | A hex ARGB value.                                                                           |
-| numFmt    | `data-num-fmt`         | Number Format                          | "0"                                                                                         |
-|           |                        |                                        | "0.00%"                                                                                     |
-|           |                        |                                        | "0.0%" // string specifying a custom format                                                 |
-|           |                        |                                        | "0.00%;\\(0.00%\\);\\-;@" // string specifying a custom format, escaping special characters |
-| Exclude   | `data-exclude`         | Exclude this cell in the exported xlsx | `true`                                                                                      |
-| Hyperlink | `data-hyperlink`       | To add hyperlink to a cell             |                                                                                             |
+| Category  | Attribute              | Description                   | Values                                                                                      |
+| --------- | ---------------------- | ----------------------------- | ------------------------------------------------------------------------------------------- |
+| font      | `data-f-name`          | Font name                     | "Calibri" ,"Arial" etc.                                                                     |
+|           | `data-f-sz`            | Font size                     | "11" // font size in points                                                                 |
+|           | `data-f-color`         | Font color                    | A hex ARGB value. Eg: FFFFOOOO for opaque red.                                              |
+|           | `data-f-bold`          | Bold                          | `true` or `false`                                                                           |
+|           | `data-f-italic`        | Italic                        | `true` or `false`                                                                           |
+|           | `data-underline`       | Underline                     | `true` or `false`                                                                           |
+|           | `data-f-strike`        | Strike                        | `true` or `false`                                                                           |
+| Alignment | `data-a-h`             | Horizontal alignment          | `left`, `center`, `right`, `fill`, `justify`, `centerContinuous`, `distributed`             |
+|           | `data-a-v`             | Vertical alignment            | `bottom`, `middle`, `top`, `distributed`, `justify`                                         |
+|           | `data-a-wrap`          | Wrap text                     | `true` or `false`                                                                           |
+|           | `data-a-indent`        | Indent                        | Integer                                                                                     |
+|           | `data-a-rtl`           | Text direction: Right to Left | `true` or `false`                                                                           |
+|           | `data-a-text-rotation` | Text rotation                 | 0 to 90                                                                                     |
+|           |                        |                               | -1 to -90                                                                                   |
+|           |                        |                               | vertical                                                                                    |
+| Border    | `data-b-a-s`           | Border style (all borders)    | Refer `BORDER_STYLES`                                                                       |
+|           | `data-b-t-s`           | Border top style              | Refer `BORDER_STYLES`                                                                       |
+|           | `data-b-b-s`           | Border bottom style           | Refer `BORDER_STYLES`                                                                       |
+|           | `data-b-l-s`           | Border left style             | Refer `BORDER_STYLES`                                                                       |
+|           | `data-b-r-s`           | Border right style            | Refer `BORDER_STYLES`                                                                       |
+|           | `data-b-a-c`           | Border color (all borders)    | A hex ARGB value. Eg: FFFFOOOO for opaque red.                                              |
+|           | `data-b-t-c`           | Border top color              | A hex ARGB value.                                                                           |
+|           | `data-b-b-c`           | Border bottom color           | A hex ARGB value.                                                                           |
+|           | `data-b-l-c`           | Border left color             | A hex ARGB value.                                                                           |
+|           | `data-b-r-c`           | Border right color            | A hex ARGB value.                                                                           |
+| Fill      | `data-fill-color`      | Cell background color         | A hex ARGB value.                                                                           |
+| numFmt    | `data-num-fmt`         | Number Format                 | "0"                                                                                         |
+|           |                        |                               | "0.00%"                                                                                     |
+|           |                        |                               | "0.0%" // string specifying a custom format                                                 |
+|           |                        |                               | "0.00%;\\(0.00%\\);\\-;@" // string specifying a custom format, escaping special characters |
 
-**`BORDER_STYLES:`** `thin`, `medium`, `thick`, `dotted`, `hair`, `dashed`, `mediumDashed`, `dashDot`, `mediumDashDot`, `dashDotDot` `mediumDashDotDot` `slantDashDot`
+**`BORDER_STYLES:`** `thin`, `dotted`, `dashDot`, `hair`, `dashDotDot`, `slantDashDot`, `mediumDashed`, `mediumDashDotDot`, `mediumDashDot`, `medium`, `double`, `thick`
+
+# Exclude Cells and rows
+
+To exclude a cell or a row from the exported excel add `data-exclude="true"` to the corresponding `td` or `tr`.  
+Example:
+
+```html
+<!-- Exclude entire row -->
+<tr data-exclude="true">
+  <td>Excluded row</td>
+  <td>Something</td>
+</tr>
+
+<!-- Exclude a single cell -->
+<tr>
+  <td>Included Cell</td>
+  <td data-exclude="true">Excluded Cell</td>
+  <td>Included Cell</td>
+</tr>
+```
 
 # Column Width
 
 Column width's can be set by specifying `data-cols-width` in the `<table>` tag.
-`data-cols-width` accepts comma separated column widths specified in character count ([refer](https://github.com/SheetJS/js-xlsx#column-properties)).
-`data-cols-width="10,20"` will set width of first coulmn as width of 10 charaters and second column as 20 characters wide.
+`data-cols-width` accepts comma separated column widths specified in character count .
+`data-cols-width="10,20"` will set width of first coulmn as width of 10 charaters and second column as 20 characters wide.  
 Example:
 
 ```html
@@ -95,4 +133,20 @@ Example:
 </table>
 ```
 
-# TODO
+# Release Changelog
+
+## 1.0.0
+
+[Migration Guide](https://github.com/linways/table-to-excel/wiki/Migration-guide-for-V0.2.1-to-V1.0.0) for migrating from V0.2.1 to V1.0.0
+
+- Added border color
+- Option to set style and color for all borders
+- Exclude row
+- Added text underline
+- Added support for hyperlinks
+- Text intent
+- RTL support
+- Extra alignment options
+- String "true/false" will be accepted as Boolean
+- Changed border style values
+- Text rotation values changed
