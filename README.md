@@ -1,11 +1,14 @@
 # Table to Excel 2
 
+[![Build Status](https://travis-ci.org/linways/table-to-excel.svg?branch=master)](https://travis-ci.org/linways/table-to-excel)
+
 Export HTML table to valid excel file effortlessly.
-This library uses [guyonroche/exceljs](https://github.com/guyonroche/exceljs) under the hood to create the excel.
+This library uses [guyonroche/exceljs](https://github.com/guyonroche/exceljs) under the hood to create the excel.  
+(Initial version of this library was using [protobi/js-xlsx](https://github.com/linways/table-to-excel/tree/V0.2.1), it can be found [here](https://github.com/linways/table-to-excel/tree/V0.2.1))
 
 # Installation
 
-In the browser, just add a script tag:
+Just add a script tag:
 
 ```html
 <script type="text/javascript" src="../dist/tableToExcel2.js"></script>
