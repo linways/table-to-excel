@@ -38,7 +38,8 @@ TableToExcel.convert(document.getElementById("table1"), {
 
 # Cell Types
 
-Cell types can be set using the following data attributes:  
+Cell types can be set using the following data attributes:    
+
 |Attribute| Description| Possible Values|
 |---------|------------|----------------|
 |`data-t`| To specify the data type of a cell| `s` : String (Default)<br> `n` : Number <br> `b` : Boolean <br> `d` : Date|
