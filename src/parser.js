@@ -128,9 +128,9 @@ const TTEParser = (function() {
           break;
         case "b": //boolean
           val =
-            rawVal === "true"
+            rawVal.toLowerCase() === "true"
               ? true
-              : rawVal === "false"
+              : rawVal.toLowerCase() === "false"
               ? false
               : Boolean(parseInt(rawVal));
           break;
