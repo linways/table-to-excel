@@ -1,8 +1,23 @@
 {
-  "name": "table-to-excel",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@linways/table-to-excel",
+  "version": "1.0.1",
+  "description": "Javascript library to create 'valid' excel file from html table with styles",
+  "main": "./dist/tableToExcel.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/linways/table-to-excel"
+  },
+  "bugs": {
+    "url": "https://github.com/linways/table-to-excel/issues"
+  },
+  "homepage": "https://github.com/linways/table-to-excel#readme",
+  "keywords": [
+    "html table to excel",
+    "excel with styles",
+    "excel js",
+    "table to excel",
+    "html to xlsx"
+  ],
   "scripts": {
     "dev": "parcel sample/index.html",
     "build": "parcel build src/tableToExcel.js",

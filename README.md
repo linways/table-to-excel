@@ -8,10 +8,22 @@ This library uses [guyonroche/exceljs](https://github.com/guyonroche/exceljs) un
 
 # Installation
 
+## Browser
+
 Just add a script tag:
 
 ```html
 <script type="text/javascript" src="../dist/tableToExcel.js"></script>
+```
+
+## Node
+
+```bash
+npm install @linways/table-to-excel --save
+```
+
+```javascript
+import TableToExcel from "@linways/table-to-excel";
 ```
 
 # Usage
@@ -38,13 +50,13 @@ TableToExcel.convert(document.getElementById("table1"), {
 
 # Cell Types
 
-Cell types can be set using the following data attributes:    
+Cell types can be set using the following data attributes:
 
-|Attribute| Description| Possible Values|
-|---------|------------|----------------|
-|`data-t`| To specify the data type of a cell| `s` : String (Default)<br> `n` : Number <br> `b` : Boolean <br> `d` : Date|
-|`data-hyperlink`| To add hyper link to cell | External URL or hyperlink to another sheet|
-|`data-error`| To add value of a cell as error| |
+| Attribute        | Description                        | Possible Values                                                            |
+| ---------------- | ---------------------------------- | -------------------------------------------------------------------------- |
+| `data-t`         | To specify the data type of a cell | `s` : String (Default)<br> `n` : Number <br> `b` : Boolean <br> `d` : Date |
+| `data-hyperlink` | To add hyper link to cell          | External URL or hyperlink to another sheet                                 |
+| `data-error`     | To add value of a cell as error    |                                                                            |
 
 Example:
 
@@ -140,6 +152,7 @@ Example:
 
 [Migration Guide](https://github.com/linways/table-to-excel/wiki/Migration-guide-for-V0.2.1-to-V1.0.0) for migrating from V0.2.1 to V1.0.0
 
+- Changed the backend to Exce[guyonroche/exceljs](https://github.com/guyonroche/exceljs)lJS
 - Added border color
 - Option to set style and color for all borders
 - Exclude row
