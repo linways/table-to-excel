@@ -196,4 +196,23 @@ describe("Parser", function() {
       expect(ws.columns[0].width).to.equals(70);
     });
   });
+
+  describe("Multiple merges", function() {
+    var ws;
+    it("should handle multiple merges properly", function() {
+      let table = getTable("multipleMerges");
+      ws = getWorkSheet();
+      ws = Parser.parseDomToTable(ws, table, _opts);
+      expect(ws.getCell("A1").value).to.equals(ws.getCell("F1").value);
+      expect(ws.getCell("A2").value).to.equals(ws.getCell("B2").value);
+      expect(ws.getCell("C2").value).to.equals(ws.getCell("D2").value);
+      expect(ws.getCell("E2").value).to.equals(ws.getCell("F2").value);
+      expect(ws.getCell("A3").value).to.equals(ws.getCell("A4").value);
+      expect(ws.getCell("B3").value).to.equals("B");
+      expect(ws.getCell("B4").value).to.equals("Y");
+      expect(ws.getCell("A5").value).to.equals(ws.getCell("A6").value);
+      expect(ws.getCell("B5").value).to.equals("B");
+      expect(ws.getCell("B6").value).to.equals("Y");
+    });
+  });
 });

@@ -7,7 +7,7 @@ const TTEParser = (function() {
    * @param {HTML entity} table The table to be converted to excel sheet
    */
   methods.parseDomToTable = function(ws, table, opts) {
-    let _r, _c, cs, rs;
+    let _r, _c, cs, rs, r, c;
     let rows = [...table.getElementsByTagName("tr")];
     let widths = table.getAttribute("data-cols-width");
     if (widths)
@@ -23,6 +23,8 @@ const TTEParser = (function() {
         continue;
       }
       let tds = [...row.children];
+      r = _r + 1;
+      c = 1;
       for (_c = 0; _c < tds.length; ++_c) {
         let td = tds[_c];
         if (td.getAttribute("data-exclude") === "true") {
@@ -30,16 +32,24 @@ const TTEParser = (function() {
           _c--;
           continue;
         }
+        for (let _m = 0; _m < merges.length; ++_m) {
+          var m = merges[_m];
+          if (m.s.c == c && m.s.r <= r && r <= m.e.r) {
+            c = m.e.c + 1;
+            _m = -1;
+          }
+        }
+        let exCell = ws.getCell(getColumnAddress(c, r));
         // calculate merges
         cs = parseInt(td.getAttribute("colspan")) || 1;
         rs = parseInt(td.getAttribute("rowspan")) || 1;
         if (cs > 1 || rs > 1) {
-          merges.push([
-            getExcelColumnName(_c + 1) + (_r + 1),
-            getExcelColumnName(_c + cs) + (_r + rs)
-          ]);
+          merges.push({
+            s: { c: c, r: r },
+            e: { c: c + cs - 1, r: r + rs - 1 }
+          });
         }
-        let exCell = ws.getCell(getColumnAddress(_c + 1, _r + 1));
+        c += cs;
         exCell.value = getValue(td);
         if (!opts.autoStyle) {
           let styles = getStylesDataAttr(td);
@@ -49,10 +59,10 @@ const TTEParser = (function() {
           exCell.fill = styles.fill || null;
           exCell.numFmt = styles.numFmt || null;
         }
-        // If first row, set width of the columns.
-        if (_r == 0) {
-          // ws.columns[_c].width = Math.round(tds[_c].offsetWidth / 7.2); // convert pixel to character width
-        }
+        // // If first row, set width of the columns.
+        // if (_r == 0) {
+        //   // ws.columns[_c].width = Math.round(tds[_c].offsetWidth / 7.2); // convert pixel to character width
+        // }
       }
     }
     //Setting column width
@@ -60,11 +70,25 @@ const TTEParser = (function() {
       widths.forEach((width, _i) => {
         ws.columns[_i].width = width;
       });
-    // applying merges to the sheet
-    merges.forEach(element => {
-      ws.mergeCells(element[0] + ":" + element[1]);
-    });
+    applyMerges(ws, merges);
     return ws;
+  };
+
+  /**
+   * To apply merges on the sheet
+   * @param {object} ws The worksheet object
+   * @param {object[]} merges array of merges
+   */
+  let applyMerges = function(ws, merges) {
+    merges.forEach(m => {
+      ws.mergeCells(
+        getExcelColumnName(m.s.c) +
+          m.s.r +
+          ":" +
+          getExcelColumnName(m.e.c) +
+          m.e.r
+      );
+    });
   };
 
   /**

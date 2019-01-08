@@ -1,6 +1,6 @@
 {
   "name": "@linways/table-to-excel",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Javascript library to create 'valid' excel file from html table with styles",
   "main": "./dist/tableToExcel.js",
   "repository": {
