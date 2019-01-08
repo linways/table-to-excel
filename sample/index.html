@@ -144,6 +144,72 @@
       </table>
 
       <button id="button-excel" onclick="exportExcel()">Create Excel</button>
+
+      <table id="sampletable2" border="1">
+        <tr>
+          <th
+            colspan="6"
+            data-b-a-s="thin"
+            data-a-h="center"
+            data-f-bold="true"
+          >
+            Things
+          </th>
+        </tr>
+        <tr>
+          <th colspan="2">Letters</th>
+          <th colspan="2">Numbers</th>
+          <th colspan="2">Sp chars</th>
+        </tr>
+        <tr>
+          <td rowspan="2">A</td>
+          <td>B</td>
+          <td>1</td>
+          <td>2</td>
+          <td>*</td>
+          <td>#</td>
+        </tr>
+        <tr>
+          <td>Y</td>
+          <td>3</td>
+          <td>4</td>
+          <td>$</td>
+          <td>%</td>
+        </tr>
+        <tr>
+          <td rowspan="2">C</td>
+          <td>B</td>
+          <td>1</td>
+          <td>2</td>
+          <td>*</td>
+          <td>#</td>
+        </tr>
+        <tr>
+          <td>Y</td>
+          <td>3</td>
+          <td>4</td>
+          <td>$</td>
+          <td>%</td>
+        </tr>
+        <tr>
+          <td rowspan="2">D</td>
+          <td>B</td>
+          <td>1</td>
+          <td>2</td>
+          <td>*</td>
+          <td>#</td>
+        </tr>
+        <tr>
+          <td>Y</td>
+          <td>3</td>
+          <td>4</td>
+          <td>$</td>
+          <td>%</td>
+        </tr>
+      </table>
+
+      <br />
+      <button id="toExcel">Convert to Excel table 2</button>
     </div>
     <script src="../src/tableToExcel.js"></script>
 
@@ -151,6 +217,13 @@
       function exportExcel() {
         TableToExcel.convert(document.getElementById("simpleTable1"));
       }
+
+      let button = document.querySelector("#toExcel");
+
+      button.addEventListener("click", e => {
+        let table = document.querySelector("#sampletable2");
+        TableToExcel.convert(table);
+      });
     </script>
   </body>
 </html>
