@@ -45,6 +45,8 @@ TableToExcel.convert(document.getElementById("table1"), {
   }
 });
 ```
+Check [this pen](https://codepen.io/rohithb/pen/YdjVbb) for working example.
+
 
 <!-- See [samples/index.html]() or [this fiddle](https://jsfiddle.net/rohithb/e2h4mbc5/)for working example. -->
 
