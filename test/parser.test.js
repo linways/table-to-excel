@@ -197,6 +197,15 @@ describe("Parser", function() {
     });
   });
 
+  describe("Row height", function() {
+    it("Should handle the row height", function() {
+      let table = getTable("styles");
+      let ws = getWorkSheet();
+      ws = Parser.parseDomToTable(ws, table, _opts);
+      expect(ws.getRow(13).height).to.equals(45);
+    });
+  });
+
   describe("Multiple merges", function() {
     var ws;
     it("should handle multiple merges properly", function() {

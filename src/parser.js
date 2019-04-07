@@ -17,14 +17,19 @@ const TTEParser = (function() {
     let merges = [];
     for (_r = 0; _r < rows.length; ++_r) {
       let row = rows[_r];
+      r = _r + 1; // Actual excel row number
+      c = 1; // Actual excel col number
       if (row.getAttribute("data-exclude") === "true") {
         rows.splice(_r, 1);
         _r--;
         continue;
       }
+      if (row.getAttribute("data-height")) {
+        let exRow = ws.getRow(r);
+        exRow.height = parseFloat(row.getAttribute("data-height"));
+      }
+
       let tds = [...row.children];
-      r = _r + 1;
-      c = 1;
       for (_c = 0; _c < tds.length; ++_c) {
         let td = tds[_c];
         if (td.getAttribute("data-exclude") === "true") {

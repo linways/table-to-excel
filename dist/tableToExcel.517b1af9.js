@@ -141,6 +141,9 @@ var TTEParser = function () {
 
     for (_r = 0; _r < rows.length; ++_r) {
       var row = rows[_r];
+      r = _r + 1; // Actual excel row number
+
+      c = 1; // Actual excel col number
 
       if (row.getAttribute("data-exclude") === "true") {
         rows.splice(_r, 1);
@@ -148,10 +151,12 @@ var TTEParser = function () {
         continue;
       }
 
-      var tds = _toConsumableArray(row.children);
+      if (row.getAttribute("data-height")) {
+        var exRow = ws.getRow(r);
+        exRow.height = parseFloat(row.getAttribute("data-height"));
+      }
 
-      r = _r + 1;
-      c = 1;
+      var tds = _toConsumableArray(row.children);
 
       for (_c = 0; _c < tds.length; ++_c) {
         var td = tds[_c];
@@ -44629,7 +44634,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52850" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49818" + '/');
 
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);

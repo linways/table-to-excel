@@ -146,6 +146,18 @@ Example:
 </table>
 ```
 
+# Row Height
+
+Row Height can be set by specifying `data-height` in the `<tr>` tag.  
+Example:
+
+```html
+<tr data-height="42.5">
+  <td>Cell 1</td>
+  <td>Cell 2</td>
+</tr>
+```
+
 # Release Changelog
 
 ## 1.0.0
@@ -164,3 +176,11 @@ Example:
 - String "true/false" will be accepted as Boolean
 - Changed border style values
 - Text rotation values changed
+
+## 1.0.2
+
+- Fixed bug in handling multiple columns merges in a sheet
+
+## 1.0.3
+
+- Option to specify row height
