@@ -153,7 +153,18 @@ const TTEParser = (function() {
           val = Number(rawVal);
           break;
         case "d": //date
-          val = new Date(rawVal);
+          let date = new Date(rawVal);
+          // To fix the timezone issue
+          val = new Date(
+            Date.UTC(
+              date.getFullYear(),
+              date.getMonth(),
+              date.getDate(),
+              date.getHours(),
+              date.getMinutes(),
+              date.getSeconds()
+            )
+          );
           break;
         case "b": //boolean
           val =
