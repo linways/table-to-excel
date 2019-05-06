@@ -1,6 +1,6 @@
 {
   "name": "@linways/table-to-excel",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Javascript library to create 'valid' excel file from html table with styles",
   "main": "./dist/tableToExcel.js",
   "repository": {
@@ -28,22 +28,22 @@
   "author": "Rohith Bhaskaran",
   "license": "MIT",
   "devDependencies": {
-    "@babel/cli": "^7.2.0",
-    "@babel/core": "^7.2.0",
-    "@babel/node": "^7.2.0",
-    "@babel/polyfill": "^7.0.0",
-    "@babel/preset-env": "^7.2.0",
-    "@babel/register": "^7.0.0",
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/polyfill": "^7.4.4",
+    "@babel/preset-env": "^7.4.4",
+    "@babel/register": "^7.4.4",
     "chai": "^4.2.0",
     "jsdom": "13.0.0",
     "jsdom-global": "3.0.2",
     "mocha": "^5.2.0",
-    "parcel-bundler": "^1.10.3"
+    "parcel-bundler": "^1.12.3"
   },
   "dependencies": {
-    "exceljs": "^1.6.3",
-    "file-saver": "^2.0.0",
-    "jszip": "^3.1.5"
+    "exceljs": "^1.10.0",
+    "file-saver": "^2.0.1",
+    "jszip": "^3.2.1"
   },
   "babel": {
     "presets": [

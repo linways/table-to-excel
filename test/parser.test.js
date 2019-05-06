@@ -150,7 +150,12 @@ describe("Parser", function() {
       expect(ws.getCell("B4").value).to.be.a("string");
     });
     it("should handle date", function() {
-      expect(ws.getCell("D4").value).to.be.a("date");
+      let expectedDate = new Date("05-20-2018");
+      let actualDate = ws.getCell("D4").value;
+      expect(actualDate).to.be.a("date");
+      expect(actualDate.getDate()).to.equals(expectedDate.getDate());
+      expect(actualDate.getMonth()).to.equals(expectedDate.getMonth());
+      expect(actualDate.getFullYear()).to.equals(expectedDate.getFullYear());
     });
     it("should handle boolean", function() {
       expect(ws.getCell("A10").value).to.be.a("boolean");
