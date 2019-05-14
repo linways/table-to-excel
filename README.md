@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/linways/table-to-excel.svg?branch=master)](https://travis-ci.org/linways/table-to-excel)
 
 Export HTML table to valid excel file effortlessly.
-This library uses [guyonroche/exceljs](https://github.com/guyonroche/exceljs) under the hood to create the excel.  
+This library uses [exceljs/exceljs](https://github.com/exceljs/exceljs) under the hood to create the excel.  
 (Initial version of this library was using [protobi/js-xlsx](https://github.com/linways/table-to-excel/tree/V0.2.1), it can be found [here](https://github.com/linways/table-to-excel/tree/V0.2.1))
 
 # Installation
@@ -166,7 +166,7 @@ Example:
 
 [Migration Guide](https://github.com/linways/table-to-excel/wiki/Migration-guide-for-V0.2.1-to-V1.0.0) for migrating from V0.2.1 to V1.0.0
 
-- Changed the backend to Exce[guyonroche/exceljs](https://github.com/guyonroche/exceljs)lJS
+- Changed the backend to Exce[exceljs/exceljs](https://github.com/exceljs/exceljs)lJS
 - Added border color
 - Option to set style and color for all borders
 - Exclude row
