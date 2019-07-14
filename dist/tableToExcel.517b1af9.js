@@ -144,7 +144,7 @@ var TTEParser = function () {
   methods.parseDomToTable = function (ws, table, opts) {
     var _r, _c, cs, rs, r, c;
 
-    var rows = _toConsumableArray(table.getElementsByTagName("tr"));
+    var rows = _toConsumableArray(table.rows);
 
     var widths = table.getAttribute("data-cols-width");
     if (widths) widths = widths.split(",").map(function (item) {
@@ -217,11 +217,7 @@ var TTEParser = function () {
           exCell.border = styles.border || null;
           exCell.fill = styles.fill || null;
           exCell.numFmt = styles.numFmt || null;
-        } // // If first row, set width of the columns.
-        // if (_r == 0) {
-        //   // ws.columns[_c].width = Math.round(tds[_c].offsetWidth / 7.2); // convert pixel to character width
-        // }
-
+        }
       }
     } //Setting column width
 
@@ -45157,7 +45153,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63620" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50766" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

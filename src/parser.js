@@ -8,7 +8,7 @@ const TTEParser = (function() {
    */
   methods.parseDomToTable = function(ws, table, opts) {
     let _r, _c, cs, rs, r, c;
-    let rows = [...table.getElementsByTagName("tr")];
+    let rows = [...table.rows];
     let widths = table.getAttribute("data-cols-width");
     if (widths)
       widths = widths.split(",").map(function(item) {
@@ -64,10 +64,6 @@ const TTEParser = (function() {
           exCell.fill = styles.fill || null;
           exCell.numFmt = styles.numFmt || null;
         }
-        // // If first row, set width of the columns.
-        // if (_r == 0) {
-        //   // ws.columns[_c].width = Math.round(tds[_c].offsetWidth / 7.2); // convert pixel to character width
-        // }
       }
     }
     //Setting column width
