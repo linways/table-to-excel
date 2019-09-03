@@ -23,7 +23,7 @@ npm install @linways/table-to-excel --save
 ```
 
 ```javascript
-import TableToExcel from "@linways/table-to-excel";
+import TableToExcel from '@linways/table-to-excel';
 ```
 
 # Usage
@@ -32,21 +32,21 @@ Create your HTML table as normal.
 To export content of table `#table1` run:
 
 ```javascript
-TableToExcel.convert(document.getElementById("table1"));
+TableToExcel.convert(document.getElementById('table1'));
 ```
 
 or
 
 ```javascript
-TableToExcel.convert(document.getElementById("table1"), {
-  name: "table1.xlsx",
+TableToExcel.convert(document.getElementById('table1'), {
+  name: 'table1.xlsx',
   sheet: {
-    name: "Sheet 1"
+    name: 'Sheet 1'
   }
 });
 ```
-Check [this pen](https://codepen.io/rohithb/pen/YdjVbb) for working example.
 
+Check [this pen](https://codepen.io/rohithb/pen/YdjVbb) for working example.
 
 <!-- See [samples/index.html]() or [this fiddle](https://jsfiddle.net/rohithb/e2h4mbc5/)for working example. -->
 
@@ -185,4 +185,6 @@ Example:
 
 ## 1.0.3
 
-- Option to specify row height
+- Option to specify row
+
+* test
