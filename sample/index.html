@@ -16,7 +16,7 @@
           <tr>
             <td
               colspan="5"
-              data-f-sz="25"
+              data-f-sz="12"
               data-f-color="FFFFAA00"
               data-a-h="center"
               data-a-v="middle"
@@ -54,7 +54,7 @@
               ABC1
             </td>
             <td rowspan="1" data-f-strike="true">Striked Text</td>
-            <td data-t="d">05-20-2018</td>
+            <td data-t="d" data-num-fmt="dd-mm-yyyy">20-05-2018</td>
             <td data-t="n" data-num-fmt="$ 0.00">2210.00</td>
           </tr>
 
@@ -218,13 +218,13 @@
 
     <script>
       function exportExcel() {
-        TableToExcel.convert(document.getElementById("simpleTable1"));
+        TableToExcel.convert(document.getElementById('simpleTable1'));
       }
 
-      let button = document.querySelector("#toExcel");
+      let button = document.querySelector('#toExcel');
 
-      button.addEventListener("click", e => {
-        let table = document.querySelector("#sampletable2");
+      button.addEventListener('click', e => {
+        let table = document.querySelector('#sampletable2');
         TableToExcel.convert(table);
       });
     </script>
